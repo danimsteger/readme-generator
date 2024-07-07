@@ -143,4 +143,11 @@ If you have any questions, please contact ${data.name} via [GitHub](${data.githu
     const filename = `${data.title.toLowerCase().split(" ").join("")}.md`;
 
     fs.writeFile(filename, myMD, (err) => console.log(err));
+
+    const licensename = `${data.title
+      .toLowerCase()
+      .split(" ")
+      .join("")}_license.md`;
+
+    fs.writeFile(licensename, data.license, (err) => console.log(err));
   });
