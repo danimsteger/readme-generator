@@ -19,6 +19,11 @@ inquirer
     },
     {
       type: "input",
+      message: colors.magenta("What is your GitHub username?"),
+      name: "github",
+    },
+    {
+      type: "input",
       message: colors.magenta("Please input the title of your project"),
       name: "title",
     },
@@ -68,11 +73,6 @@ inquirer
         "GNU General Public License v2.0",
       ],
     },
-    {
-      type: "input",
-      message: colors.magenta("What is your GitHub username?"),
-      name: "github",
-    },
   ])
   .then((data) => {
     let licenseBadge;
@@ -112,15 +112,16 @@ ${licenseBadge}
   - [Installation](#installation)
   - [Usage](#usage)
   - [License](#license)
-  - [Contributing](#contributing)
+  - [Contribution](#contribution)
   - [Tests](#tests)
   - [Questions](#questions)
   
   ## Installation
   
-  ${data.installation}
   
   To access the live project, you can visit this [link](${data.url}).
+
+ ${data.installation}
   
   ## Usage
   
@@ -130,7 +131,7 @@ ${licenseBadge}
   
   Distributed under the ${data.license}. See [LICENSE](${licensename}).
   
-  ## Contributing
+  ## Contribution
   
   ${data.contribution}
   
@@ -145,6 +146,18 @@ ${licenseBadge}
 
     const filename = `${data.title.toLowerCase().split(" ").join("")}.md`;
 
-    fs.writeFile(filename, myMD, (err) => console.log(err));
-    fs.writeFile(licensename, licenseContent, (err) => console.log(err));
+    fs.writeFile(filename, myMD, (err) => {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log("README file created successfully!");
+      }
+    });
+    fs.writeFile(licensename, licenseContent, (err) => {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log("License file created successfully!");
+      }
+    });
   });
