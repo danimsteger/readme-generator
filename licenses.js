@@ -1,3 +1,6 @@
+// File stores the license file content
+// Very long strings to have in the index file, so I created a separate file to make it cleaner.  
+
 const mitContent = function (data) {
   return `MIT License
 
