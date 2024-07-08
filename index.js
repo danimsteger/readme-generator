@@ -7,13 +7,14 @@ const { gnuContent } = require("./licenses");
 
 inquirer
   .prompt([
+    //Creates input prompts in terminal to gather user information and README information
     {
-      type: "name",
+      type: "input",
       message: colors.magenta("What is your name?"),
       name: "name",
     },
     {
-      type: "name",
+      type: "input",
       message: colors.magenta("What is your email?"),
       name: "email",
     },
@@ -63,6 +64,7 @@ inquirer
       message: colors.magenta("Please list the test instructions."),
       name: "test",
     },
+    // Creates list prompt to select type of License
     {
       type: "list",
       message: colors.magenta("Please select the license for your project."),
@@ -77,7 +79,7 @@ inquirer
   .then((data) => {
     let licenseBadge;
     let licenseContent;
-
+    // Creates different license badges and license content depending on the selected choice.
     if (data.license === "MIT License") {
       licenseBadge =
         "[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)";
@@ -92,10 +94,13 @@ inquirer
       licenseContent = gnuContent(data);
     }
 
+    // Creates name of license file
     const licensename = `${data.title
       .toLowerCase()
       .split(" ")
       .join("")}_license.md`;
+
+    // Creates README.md content
     const myMD = `# ${data.title}
 
 
@@ -144,8 +149,10 @@ ${licenseBadge}
   
  If you have any questions, please contact ${data.name} via [GitHub](https://github.com/${data.github}) or [email](mailto:${data.email}).`;
 
+    // Creates file name for README based on the inputed project title.
     const filename = `${data.title.toLowerCase().split(" ").join("")}.md`;
 
+    // Writes README file with created filename, the myMD md content and creates console.log messges for errors or successfully creating the file.
     fs.writeFile(filename, myMD, (err) => {
       if (err) {
         console.log(err);
@@ -153,6 +160,8 @@ ${licenseBadge}
         console.log("README file created successfully!");
       }
     });
+
+    // Writes license file with created licensename, the license content md (dependent on the license selection) and creates console.log messges for errors or successfully creating the file.
     fs.writeFile(licensename, licenseContent, (err) => {
       if (err) {
         console.log(err);
